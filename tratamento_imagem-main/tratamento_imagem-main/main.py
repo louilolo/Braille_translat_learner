@@ -1,5 +1,8 @@
+
+
 import cv2
 import numpy as np
+import sklearn
 from sklearn.metrics import DistanceMetric
 from builtins import len
 import bdLetra
