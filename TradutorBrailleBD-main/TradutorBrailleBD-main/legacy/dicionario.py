@@ -219,7 +219,7 @@ def letras(snap, flags):
             letter[0] = 'z'
     elif cedilha == snap:
         letter[0] = 'ç'
-    elif espaco == snap:
+    elif (espaco) == snap:
         letter[0] = ' '
     elif ag == snap:
         letter[0] = 'á'
@@ -282,6 +282,6 @@ def letras(snap, flags):
         letter[0] = ''
     else:
         letter[0] = '#'
-
+        
     letter[1] = str(flag)
     return letter

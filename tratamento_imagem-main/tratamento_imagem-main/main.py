@@ -2,7 +2,6 @@
 
 import cv2
 import numpy as np
-import sklearn
 from sklearn.metrics import DistanceMetric
 from builtins import len
 import bdLetra
@@ -62,7 +61,7 @@ def verificao(VLine, VCol, centroids):
                     X = [ centroids[vCent[2]], centroids[vCent[4]] ]
                     r4 = dist.pairwise(X)[0][1]
                     
-                if(r1 >= 12 or r2 >= 12 or r3 >= 14 or r4 >=14 ):
+                if(r1 >= 12 or r2 >= 12 or r3 >= 14 or r4 >=14 ):#parametrizar
                     remCol.append(1)
                 else:
                     remCol.append(0)
@@ -127,7 +126,8 @@ def transformarImagem(img):
             
     # Aplicar limiarização binária
     # limiarizada = cv2.adaptiveThreshold(escala_de_cinza_suavizada1, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 101, 2)
-    ret, imagem_limiarizada = cv2.threshold(geoCorrigida, 236, 255, cv2.THRESH_BINARY)
+    ret, imagem_limiarizada = cv2.threshold(geoCorrigida, 200, 255, cv2.THRESH_BINARY)
+    cv2.imshow("Rotated", imagem_limiarizada)
 
     
     #Filtro media
@@ -176,28 +176,28 @@ def transformarImagem(img):
     limiar_gride = 6
     cor = 200
     
-    # inserir grade coluna
+    # Inserir grade coluna na imagem original
+    imagem_com_grade = imagem.copy()
     VCol = []
-    cv2.line(escala_de_cinza_processada,(cx[0]-limiar_gride, 0), (cx[0]-limiar_gride,escala_de_cinza_processada.shape[0]),cor)
-    VCol.append(cx[0]-limiar_gride)
+    cv2.line(imagem_com_grade, (cx[0] - limiar_gride, 0), (cx[0] - limiar_gride, escala_de_cinza_processada.shape[0]), (0, 0, 255), 2)
+    VCol.append(cx[0] - limiar_gride)
     p_aux = 0
     for i in range(len(cx)):
-        if(cx[i] >= (p_aux+limiar_gride)): 
-            cv2.line(escala_de_cinza_processada,(cx[i]+limiar_gride, 0), (cx[i]+limiar_gride,escala_de_cinza_processada.shape[0]),cor)
+        if(cx[i] >= (p_aux + limiar_gride)): 
+            cv2.line(imagem_com_grade, (cx[i] + limiar_gride, 0), (cx[i] + limiar_gride, escala_de_cinza_processada.shape[0]), (0, 0, 255), 2)
             p_aux = cx[i]
-            VCol.append(cx[i]+limiar_gride)
+            VCol.append(cx[i] + limiar_gride)
 
-
-    # inserir grade linha
+    # Inserir grade linha na imagem original
     VLine = []
-    cv2.line(escala_de_cinza_processada,(0, cy[0]-limiar_gride), (escala_de_cinza_processada.shape[1],cy[0]-limiar_gride),cor)
-    VLine.append(cy[0]-limiar_gride)
+    cv2.line(imagem_com_grade, (0, cy[0] - limiar_gride), (escala_de_cinza_processada.shape[1], cy[0] - limiar_gride), (0, 0, 255), 2)
+    VLine.append(cy[0] - limiar_gride)
     p_aux = 0
     for i in range(len(cy)):
-        if(cy[i] >= (p_aux+limiar_gride)): 
-            cv2.line(escala_de_cinza_processada,(0, cy[i]+limiar_gride), (escala_de_cinza_processada.shape[1],cy[i]+limiar_gride),cor)
+        if(cy[i] >= (p_aux + limiar_gride)): 
+            cv2.line(imagem_com_grade, (0, cy[i] + limiar_gride), (escala_de_cinza_processada.shape[1], cy[i] + limiar_gride), (0, 0, 255), 2)
             p_aux = cy[i]
-            VLine.append(cy[i]+limiar_gride)
+            VLine.append(cy[i] + limiar_gride)
     
            
     # Desenhar os contornos na imagem original
@@ -209,7 +209,9 @@ def transformarImagem(img):
 
     # Exibir a imagem original, a imagem processada e a imagem com contornos
     cv2.imshow("Imagem Original", imagem)
+    cv2.imshow("Contornos", imagem_contornos)
     cv2.imshow("Rotated", imagem_limiarizada)
+    cv2.imshow("Grade", imagem_com_grade)
 
     # cv2.imshow("Imagem Processada", imagem_limiarizada)
     # cv2.imshow("Imagem com Centroides", nova_imagem_centroides)
@@ -217,4 +219,4 @@ def transformarImagem(img):
     cv2.waitKey(0)
     cv2.destroyAllWindows()
 
-transformarImagem("imagens braille/imagem 2.jpg") #imagens braille/WhatsApp Image 2022-11-03 at 14.43.13 (6).jpeg 
+transformarImagem("C:\\Users\\louis\\OneDrive\\Documentos\\GitHub\\Braille_translat_learner\\tratamento_imagem-main\\tratamento_imagem-main\\imagesTratadas\\im 4.jpg") #imagens braille/WhatsApp Image 2022-11-03 at 14.43.13 (6).jpeg 
