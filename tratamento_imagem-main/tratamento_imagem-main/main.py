@@ -1,10 +1,19 @@
-
-
 import cv2
 import numpy as np
 from sklearn.metrics import DistanceMetric
 from builtins import len
 import bdLetra
+from skimage import io, filters
+
+
+# Carregar imagem
+image = io.imread('imagem.png', as_gray=True)
+
+# Aplicar filtro de contraste e remoção de ruído
+filtered_image = filters.gaussian(image, sigma=1)
+
+# Salvar imagem processada para aplicar OCR
+io.imsave('filtered_image.png', filtered_image)
 
 def correcao_geometrica(imagem):
     # Obter as dimensões da imagem original
@@ -126,7 +135,7 @@ def transformarImagem(img):
             
     # Aplicar limiarização binária
     # limiarizada = cv2.adaptiveThreshold(escala_de_cinza_suavizada1, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 101, 2)
-    ret, imagem_limiarizada = cv2.threshold(geoCorrigida, 200, 255, cv2.THRESH_BINARY)
+    ret, imagem_limiarizada = cv2.threshold(geoCorrigida, 215, 255, cv2.THRESH_BINARY)
     cv2.imshow("Rotated", imagem_limiarizada)
 
     
@@ -206,7 +215,12 @@ def transformarImagem(img):
     VCol = verificao(VLine, VCol, centroids)
     texto = processGrid(VCol=VCol, VLine=VLine, centroids=centroids, imagem=escala_de_cinza_processada)
     print(texto)
-
+    # Aplicar filtro de contraste e remoção de ruído
+    filtered_image = filters.gaussian(image, sigma=1)
+    cv2.imshow("Imagem fil", filtered_image)
+# Salvar imagem processada para aplicar OCR
+    
+    cv2.imshow
     # Exibir a imagem original, a imagem processada e a imagem com contornos
     cv2.imshow("Imagem Original", imagem)
     cv2.imshow("Contornos", imagem_contornos)
@@ -219,4 +233,4 @@ def transformarImagem(img):
     cv2.waitKey(0)
     cv2.destroyAllWindows()
 
-transformarImagem("C:\\Users\\louis\\OneDrive\\Documentos\\GitHub\\Braille_translat_learner\\tratamento_imagem-main\\tratamento_imagem-main\\imagesTratadas\\im 4.jpg") #imagens braille/WhatsApp Image 2022-11-03 at 14.43.13 (6).jpeg 
+transformarImagem("C:\\Users\\louis\\Downloads\\Braille_translat_learner-main (1)\\Braille_translat_learner-main\\tratamento_imagem-main\\tratamento_imagem-main\\imagesTratadas\\im 0.jpg") #imagens braille/WhatsApp Image 2022-11-03 at 14.43.13 (6).jpeg 
