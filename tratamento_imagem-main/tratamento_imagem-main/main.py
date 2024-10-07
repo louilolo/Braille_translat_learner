@@ -7,7 +7,7 @@ from skimage import io, filters
 
 
 # Carregar imagem
-image = io.imread('imagem.png', as_gray=True)
+image = io.imread('tratamento_imagem-main/tratamento_imagem-main/imagesTratadas/im 0.jpg', as_gray=True)
 
 # Aplicar filtro de contraste e remoção de ruído
 filtered_image = filters.gaussian(image, sigma=1)
@@ -94,6 +94,7 @@ def processGrid(centroids,VLine,VCol,imagem):
             sub_img = imagem[VLine[i]:VLine[i+3], VCol[j]:VCol[j+2]]
             # Verifica se a sub_imagem é válida
             if sub_img.size == 0:
+                cv2.imshow("sub imagem", sub_img)
                 continue
                     
             for n in range(2): # Coluna
@@ -124,6 +125,9 @@ def desenhar_centroides(centroids, shape):
 def transformarImagem(img):
     # Ler a imagem
     imagem = cv2.imread(img)
+    if not os.path.exists(img):
+        print(f"Arquivo não encontrado: {img}")
+        return
 
     # altura, largura, canais = imagem.shape
     
@@ -149,7 +153,7 @@ def transformarImagem(img):
     escala_de_cinza_processada = cv2.dilate(escala_de_cinza_processada, kernel, iterations=1)
 
     escala_de_cinza_processada = cv2.medianBlur(escala_de_cinza_processada, 3)
-
+    cv2.imshow("escala de cinza", escala_de_cinza_processada)
     
     # Encontrar contornos na imagem limiarizada
     contornos, _ = cv2.findContours(escala_de_cinza_processada, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
@@ -216,16 +220,15 @@ def transformarImagem(img):
     texto = processGrid(VCol=VCol, VLine=VLine, centroids=centroids, imagem=escala_de_cinza_processada)
     print(texto)
     # Aplicar filtro de contraste e remoção de ruído
-    filtered_image = filters.gaussian(image, sigma=1)
-    cv2.imshow("Imagem fil", filtered_image)
-# Salvar imagem processada para aplicar OCR
     
-    cv2.imshow
     # Exibir a imagem original, a imagem processada e a imagem com contornos
-    cv2.imshow("Imagem Original", imagem)
+    cv2.imshow("Imagem Original", image)
+    cv2.imshow("Filtros", filtered_image)
+    cv2.imshow("Correção Geométrica", imagem_corrigida)
     cv2.imshow("Contornos", imagem_contornos)
     cv2.imshow("Rotated", imagem_limiarizada)
     cv2.imshow("Grade", imagem_com_grade)
+    
 
     # cv2.imshow("Imagem Processada", imagem_limiarizada)
     # cv2.imshow("Imagem com Centroides", nova_imagem_centroides)
@@ -233,4 +236,4 @@ def transformarImagem(img):
     cv2.waitKey(0)
     cv2.destroyAllWindows()
 
-transformarImagem("C:\\Users\\louis\\Downloads\\Braille_translat_learner-main (1)\\Braille_translat_learner-main\\tratamento_imagem-main\\tratamento_imagem-main\\imagesTratadas\\im 0.jpg") #imagens braille/WhatsApp Image 2022-11-03 at 14.43.13 (6).jpeg 
+transformarImagem("C:\\Users\\Ceamazon\\Documents\\GitHub\Braille_translat_learner\\tratamento_imagem-main\\tratamento_imagem-main\\imagesTratadas\\im 1.jpg") #imagens braille/WhatsApp Image 2022-11-03 at 14.43.13 (6).jpeg 
