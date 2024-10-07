@@ -1,20 +1,24 @@
 import cv2
+import os
 import numpy as np
 from sklearn.metrics import DistanceMetric
 from builtins import len
 import bdLetra
-from skimage import io, filters
+from skimage import io, filters, img_as_ubyte
+
+from skimage import img_as_ubyte
+
 
 
 # Carregar imagem
 image = io.imread('tratamento_imagem-main/tratamento_imagem-main/imagesTratadas/im 0.jpg', as_gray=True)
+# Supondo que filtered_image seja a imagem que você quer salvar
 
 # Aplicar filtro de contraste e remoção de ruído
 filtered_image = filters.gaussian(image, sigma=1)
-
+filtered_image_uint8 = img_as_ubyte(filtered_image)  # Converte para uint8
+io.imsave('filtered_image.png', filtered_image_uint8)
 # Salvar imagem processada para aplicar OCR
-io.imsave('filtered_image.png', filtered_image)
-
 def correcao_geometrica(imagem):
     # Obter as dimensões da imagem original
     altura, largura = imagem.shape[:2]
@@ -224,7 +228,8 @@ def transformarImagem(img):
     # Exibir a imagem original, a imagem processada e a imagem com contornos
     cv2.imshow("Imagem Original", image)
     cv2.imshow("Filtros", filtered_image)
-    cv2.imshow("Correção Geométrica", imagem_corrigida)
+    cv2.imshow("Correção Geométrica", geoCorrigida)
+    cv2.imshow("Nova Imagem", escala_de_cinza_processada)
     cv2.imshow("Contornos", imagem_contornos)
     cv2.imshow("Rotated", imagem_limiarizada)
     cv2.imshow("Grade", imagem_com_grade)
@@ -234,6 +239,6 @@ def transformarImagem(img):
     # cv2.imshow("Imagem com Centroides", nova_imagem_centroides)
     # cv2.imshow("Imagem com Contornos", imagem_contornos)
     cv2.waitKey(0)
-    cv2.destroyAllWindows()
+   
 
 transformarImagem("C:\\Users\\Ceamazon\\Documents\\GitHub\Braille_translat_learner\\tratamento_imagem-main\\tratamento_imagem-main\\imagesTratadas\\im 1.jpg") #imagens braille/WhatsApp Image 2022-11-03 at 14.43.13 (6).jpeg 
