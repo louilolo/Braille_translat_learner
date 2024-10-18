@@ -190,7 +190,7 @@ def transformarImagem(img):
     cx.sort(reverse=False)
     cy.sort(reverse=False)
     
-    limiar_gride = 6
+    limiar_gride = 25
     cor = 200
     
     # Inserir grade coluna na imagem original
@@ -241,4 +241,4 @@ def transformarImagem(img):
     cv2.waitKey(0)
    
 
-transformarImagem("C:\\Users\\Ceamazon\\Documents\\GitHub\Braille_translat_learner\\tratamento_imagem-main\\tratamento_imagem-main\\imagesTratadas\\im 1.jpg") #imagens braille/WhatsApp Image 2022-11-03 at 14.43.13 (6).jpeg 
+transformarImagem("C:\\Users\\louis\\OneDrive\\Documentos\\GitHub\\Braille_translat_learner\\tratamento_imagem-main\\tratamento_imagem-main\\imagesTratadas\\im 1.jpg") #imagens braille/WhatsApp Image 2022-11-03 at 14.43.13 (6).jpeg 
