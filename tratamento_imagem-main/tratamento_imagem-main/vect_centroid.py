@@ -1,4 +1,12 @@
+import cv2
+import os
+import numpy as np
+from sklearn.metrics import DistanceMetric
+from builtins import len
+import bdLetra
+from skimage import io, filters, img_as_ubyte
 
+from skimage import img_as_ubyte
 def centroid_vect(escala_de_cinza_processada3):
         # Encontrar contornos na imagem limiarizada
     contornos, _ = cv2.findContours(escala_de_cinza_processada3, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
@@ -15,4 +23,4 @@ def centroid_vect(escala_de_cinza_processada3):
         cy.append(y)
 
         centroids.append([y,x]) #linha, coluna
-    return centroids
+    return centroids , cx, cy, contornos

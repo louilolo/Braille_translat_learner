@@ -1,68 +1,12 @@
 import cv2
+import os
 import numpy as np
-import matplotlib.pyplot as plt
-#IMAGEM EQUALIZADA NORMAL
-# imagem = cv2.imread('imagesTratadas/im 8.jpg', cv2.IMREAD_GRAYSCALE)
+from sklearn.metrics import DistanceMetric
+from builtins import len
+import bdLetra
+from skimage import io, filters, img_as_ubyte
 
-# equalizador = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8, 8))
-
-# imagem_equalizada = equalizador.apply(imagem)
-
-# imagem_limiarizada = cv2.threshold(imagem_equalizada, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)[1]
-
-
-# # Exibir as imagens original e equalizada
-# plt.figure(figsize=(10, 5))
-
-# plt.subplot(1, 2, 1)
-# plt.imshow(imagem_limiarizada, cmap='gray')
-# plt.title('Imagem Limiar')
-# plt.axis('off')
-
-# plt.subplot(1, 2, 2)
-# plt.imshow(imagem_equalizada, cmap='gray')
-# plt.title('Imagem Equalizada')
-# plt.axis('off')
-
-# plt.show()
-
-
-# # Carregar a imagem em tons de cinza
-# imagem = cv2.imread('imagesTratadas/im 8.jpg', cv2.IMREAD_GRAYSCALE)
-
-# # Calcular o histograma da imagem
-# hist, bins = np.histogram(imagem.flatten(), 256, [0, 256])
-
-# # Calcular a função de distribuição acumulada (CDF)
-# cdf = hist.cumsum()
-# cdf_normalized = cdf * hist.max() / cdf.max()
-
-# # Equalizar o histograma
-# imagem_equalizada = np.interp(imagem.flatten(), bins[:-1], cdf_normalized)
-
-# # Remodelar a imagem equalizada
-# imagem_equalizada = imagem_equalizada.reshape(imagem.shape)
-
-# # Exibir as imagens original e equalizada
-# plt.figure(figsize=(10, 5))
-
-# plt.subplot(1, 2, 1)
-# plt.imshow(imagem, cmap='gray')
-# plt.title('Imagem Original')
-# plt.axis('off')
-
-# plt.subplot(1, 2, 2)
-# plt.imshow(imagem_equalizada, cmap='gray')
-# plt.title('Imagem Equalizada')
-# plt.axis('off')
-
-# plt.show()
-
-
-
-
-import cv2
-import numpy as np
+from skimage import img_as_ubyte
 
 # Função para calcular a inclinação média dos pontos
 def calcular_inclinacao_media(centroids):

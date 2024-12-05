@@ -1,4 +1,13 @@
 
+import cv2
+import os
+import numpy as np
+from sklearn.metrics import DistanceMetric
+from builtins import len
+import bdLetra
+from skimage import io, filters, img_as_ubyte
+
+from skimage import img_as_ubyte
 def transformarImagem(img):
     # Ler a imagem
     imagem = cv2.imread(img)
@@ -31,4 +40,4 @@ def transformarImagem(img):
 
         escala_de_cinza_processada3 = cv2.medianBlur(escala_de_cinza_processada2, 3)
         cv2.imshow("escala de cinza", escala_de_cinza_processada3)
-    return escala_de_cinza_processada3
+    return escala_de_cinza_processada3, imagem_limiarizada

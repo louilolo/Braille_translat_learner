@@ -1,3 +1,12 @@
+import cv2
+import os
+import numpy as np
+from sklearn.metrics import DistanceMetric
+from builtins import len
+import bdLetra
+from skimage import io, filters, img_as_ubyte
+
+from skimage import img_as_ubyte
 def processGrid(centroids,VLine,VCol,imagem):
     # Buscar Cela
     flag = 0

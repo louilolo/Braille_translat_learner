@@ -1,3 +1,13 @@
+import cv2
+import os
+import numpy as np
+from sklearn.metrics import DistanceMetric
+from builtins import len
+import bdLetra
+from skimage import io, filters, img_as_ubyte
+
+from skimage import img_as_ubyte
+
 def alinhar_pontos_braille(centroids, imagem):
     # Aplicar Canny para detectar bordas (opcional, melhora detecção de linhas)
    # bordas = cv2.Canny(imagem, 50, 150, apertureSize=3)

@@ -1,11 +1,15 @@
 import cv2
-import matplotlib.pyplot as plt
+import os
 import numpy as np
 from sklearn.metrics import DistanceMetric
+from builtins import len
+import bdLetra
+from skimage import io, filters, img_as_ubyte
 
-from bdLetra import bdLetra
+from skimage import img_as_ubyte
 
 def desenhar_centroides(centroids, shape):
+
     # Criar uma imagem em branco
     nova_imagem = np.ones(shape, dtype=np.uint8) * 255  # Fundo branco
     

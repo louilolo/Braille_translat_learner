@@ -1,3 +1,12 @@
+import cv2
+import os
+import numpy as np
+from sklearn.metrics import DistanceMetric
+from builtins import len
+import bdLetra
+from skimage import io, filters, img_as_ubyte
+
+from skimage import img_as_ubyte
 def grid_appl(imagem, cy, cx, nova_imagem_centroides):
     limiar_gride = 25
 # Inserir grade coluna na imagem original
@@ -22,4 +31,4 @@ def grid_appl(imagem, cy, cx, nova_imagem_centroides):
             cv2.line(imagem_com_grade, (0, cy[i] + limiar_gride), (nova_imagem_centroides.shape[1], cy[i] + limiar_gride), (0, 0, 255), 2)
             p_aux = cy[i]
             VLine.append(cy[i] + limiar_gride)
-    return VLine, VCol
+    return VLine, VCol, imagem_com_grade

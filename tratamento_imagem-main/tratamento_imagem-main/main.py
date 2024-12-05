@@ -1,14 +1,20 @@
+import cv2
+import os
+import numpy as np
+from sklearn.metrics import DistanceMetric
+from builtins import len
+import bdLetra
+from skimage import io, filters, img_as_ubyte
+from alinhar import alinhar_pontos_braille
+from deenhar_centroids import desenhar_centroides
+from grade import grid_appl
+from process_grid import processGrid
+from transformar import transformarImagem
+from vcol import verificao
+from vect_centroid import centroid_vect
 
+from skimage import img_as_ubyte
 def main():
-    import cv2
-    import os
-    import numpy as np
-    from sklearn.metrics import DistanceMetric
-    from builtins import len
-    import bdLetra
-    from skimage import io, filters, img_as_ubyte
-
-    from skimage import img_as_ubyte
 
     # Carregar imagem
     image = io.imread('tratamento_imagem-main/tratamento_imagem-main/imagesTratadas/im 0.jpg', as_gray=True)
@@ -19,10 +25,13 @@ def main():
     filtered_image_uint8 = img_as_ubyte(filtered_image)  # Converte para uint8
     io.imsave('filtered_image.png', filtered_image_uint8)
 # Salvar imagem processada para aplicar OCR
-
+    escala_de_cinza_processada3, imagem_limiarizada= transformarImagem(filtered_image_uint8)
+    centroids, cx , cy, contornos = centroid_vect(escala_de_cinza_processada3)
     print(type(escala_de_cinza_processada3))
+    
     nova_imagem_centroides = desenhar_centroides(centroids, escala_de_cinza_processada3.shape)
     print(type(nova_imagem_centroides))
+    
     correcao_geometrica = alinhar_pontos_braille(centroids, nova_imagem_centroides)
     cv2.imshow("passou?", nova_imagem_centroides)
     #remove a primeira linha pois ele retorna o centroid da imagem.
@@ -33,16 +42,13 @@ def main():
     #ordenar as listas com os valores de X e Y (crescente)
     cx.sort(reverse=False)
     cy.sort(reverse=False)
-    
-    
-    cor = 200
-    
-        
+    VLine, VCol, imagem_com_grade = grid_appl(image, cy, cx, nova_imagem_centroides)    
     # Desenhar os contornos na imagem original
-    imagem_contornos = imagem.copy()
+    imagem_contornos = image.copy()
     cv2.drawContours(imagem_contornos, contornos, -1, (0, 255, 0), 2)
+    
     VCol = verificao(VLine, VCol, centroids)
-    texto = processGrid(VCol=VCol, VLine=VLine, centroids=centroids, imagem=nova_imagem_centroides)
+    texto = processGrid(VCol=VCol, VLine=VLine, centroids=centroids, imagem=imagem_com_grade)
     print(texto)
     # Aplicar filtro de contraste e remoção de ruído
     
