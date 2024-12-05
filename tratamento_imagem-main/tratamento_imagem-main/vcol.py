@@ -53,5 +53,5 @@ def verificao(VLine, VCol, centroids):
     
     if(np.max(remCol) == 1):
         VCol.remove(VCol[0])
-
+    print("rodou vcol")
     return VCol

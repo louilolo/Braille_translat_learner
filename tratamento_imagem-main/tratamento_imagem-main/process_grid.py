@@ -33,5 +33,5 @@ def processGrid(centroids,VLine,VCol,imagem):
                 
             [carac, flag] = bdLetra.bdLetra(vLetras, flag)
             text += carac
-    
+    print("rodou pgrid")
     return text

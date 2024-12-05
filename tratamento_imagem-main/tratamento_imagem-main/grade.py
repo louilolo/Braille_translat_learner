@@ -31,4 +31,5 @@ def grid_appl(imagem, cy, cx, nova_imagem_centroides):
             cv2.line(imagem_com_grade, (0, cy[i] + limiar_gride), (nova_imagem_centroides.shape[1], cy[i] + limiar_gride), (0, 0, 255), 2)
             p_aux = cy[i]
             VLine.append(cy[i] + limiar_gride)
+    print("rodou grade")
     return VLine, VCol, imagem_com_grade
